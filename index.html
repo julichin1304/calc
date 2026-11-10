@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEDIA VOGUE · Собери свой медиамикс</title>
+<style>
+:root{--bg:#F5EBDD;--card:#FFF8EE;--ink:#111;--mut:#6b5f57;--ch:#6B1E2E;--line:#d9c9b3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15100f;--card:#211918;--ink:#f5ebdd;--mut:#b9a998;--ch:#e0889c;--line:#3a2d2b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15100f;--card:#211918;--ink:#f5ebdd;--mut:#b9a998;--ch:#e0889c;--line:#3a2d2b;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Montserrat,Arial,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:22px 16px 40px}
+.k{letter-spacing:.18em;font-size:11px;color:var(--ch);font-weight:600}
+h1{font:italic 700 clamp(30px,8vw,46px)/1.05 "Playfair Display",Georgia,serif;margin:6px 0 6px}
+.sub{color:var(--mut);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.row h3{margin:0;font:700 18px "Playfair Display",Georgia,serif}.row small{color:var(--mut)}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+input[type=range]{width:100%;accent-color:var(--ch);margin:10px 0 4px}
+.num{font-weight:600;color:var(--ch)}
+.as{font-size:12px;color:var(--mut)}
+.bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:600}
+.warn{color:#b3261e}.ok{color:#2e7d32}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.m{border-top:2px solid var(--ch);padding-top:6px}.m b{display:block;font:700 24px "Playfair Display",Georgia,serif}.m span{font-size:12px;color:var(--mut)}
+button{background:var(--ch);color:#fff;border:0;border-radius:99px;padding:10px 18px;font:600 13px Montserrat,Arial,sans-serif;cursor:pointer}
+.ft{font-size:12px;color:var(--mut);margin-top:14px}
+</style></head><body><div class="w">
+<div class="k">MEDIA VOGUE · THE MEDIA FITTING ROOM</div>
+<h1>Собери свой медиамикс</h1>
+<p class="sub">Раздели 120 000 ₽ между тремя площадками и посмотри, как меняются метрики.</p>
+<div id="rows"></div>
+<div class="card bar"><span>Распределено: <span id="tot" class="num"></span></span><span id="rem"></span></div>
+<div class="card"><div class="g" id="res"></div></div>
+<div class="card" id="ins"></div>
+<button id="rs">Как в журнале: 50 / 40 / 30 тыс.</button>
+<p class="ft">Учебная модель LUNE. Цены и отклик условные, это не результаты платформ. Дешёвый лид не всегда лучший: сверяйся с задачей кампании.</p>
+</div>
+<script>
+const P=[{n:"ВКонтакте",f:"видео, посты",cpm:200,ctr:.01,cr:.05,b:50000},{n:"Telegram",f:"нативные посты",cpm:400,ctr:.012,cr:.04,b:40000},{n:"РСЯ",f:"баннеры",cpm:200,ctr:.02,cr:.054,b:30000}];
+const LIM=120000,f0=n=>Math.round(n).toLocaleString("ru-RU"),f2=n=>n.toLocaleString("ru-RU",{minimumFractionDigits:2,maximumFractionDigits:2});
+const rows=document.getElementById("rows");
+P.forEach((p,i)=>{rows.insertAdjacentHTML("beforeend",`<div class="card row"><div class="top"><div><h3>${p.n}</h3><small>${p.f}</small></div><div class="num" id="v${i}"></div></div><input type="range" id="s${i}" min="0" max="${LIM}" step="1000" value="${p.b}"><div class="as">CPM ${p.cpm} ₽ · CTR ${(p.ctr*100).toFixed(1).replace(".",",")}% · CR в лид ${(p.cr*100).toFixed(1).replace(".",",")}%</div></div>`);document.getElementById("s"+i).oninput=calc});
+function calc(){let B=0,I=0,C=0,L=0,best=null;
+P.forEach((p,i)=>{const b=+document.getElementById("s"+i).value;p.cur=b;document.getElementById("v"+i).textContent=f0(b)+" ₽";const im=b/p.cpm*1000,cl=im*p.ctr,ld=cl*p.cr;B+=b;I+=im;C+=cl;L+=ld;p.ld=ld;if(b>0&&(!best||b/ld<best.cpl))best={n:p.n,cpl:b/ld}});
+document.getElementById("tot").textContent=f0(B)+" ₽";const r=LIM-B,e=document.getElementById("rem");
+e.className=r<0?"warn":"ok";e.textContent=r<0?"Перебор на "+f0(-r)+" ₽":r===0?"Бюджет собран":"Осталось "+f0(r)+" ₽";
+const m=(v,l)=>`<div class="m"><b>${v}</b><span>${l}</span></div>`;
+document.getElementById("res").innerHTML=B?m(f0(I),"показы")+m(f0(C),"клики")+m(f0(L),"лиды")+m(f2(B/I*1000)+" ₽","CPM")+m(f2(C/I*100)+"%","CTR")+m(f2(B/C)+" ₽","CPC")+m(f2(B/L)+" ₽","CPL"):"<span class='as'>Распредели бюджет</span>";
+document.getElementById("ins").innerHTML=best?`<b>Самый дешёвый лид:</b> ${best.n}, ${f2(best.cpl)} ₽. Но если задача — знание о коллекции, смотри ещё на охват и частоту, а не только на CPL.`:"";}
+document.getElementById("rs").onclick=()=>{P.forEach((p,i)=>document.getElementById("s"+i).value=p.b);calc()};calc();
+</script></body></html>
