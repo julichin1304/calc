@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEDIA VOGUE · Собери свой look</title>
+<style>
+:root{--bg:#fff;--card:#f4f4f4;--ink:#111;--mut:#666;--ch:#C8102E;--line:#d8d8d8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101010;--card:#1c1c1c;--ink:#f5f5f5;--mut:#aaa;--ch:#ff4d63;--line:#333;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101010;--card:#1c1c1c;--ink:#f5f5f5;--mut:#aaa;--ch:#ff4d63;--line:#333;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,Arial,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:22px 16px 40px}
+.k{letter-spacing:.18em;font-size:11px;color:var(--ch);font-weight:700}
+h1{font:italic 700 clamp(32px,9vw,50px)/1.02 "Times New Roman",Georgia,serif;margin:6px 0 6px}
+.sub{color:var(--mut);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);padding:14px;margin-bottom:12px}
+.look{display:flex;flex-direction:column;align-items:center;text-align:center}
+#fig{width:170px;max-width:60%;height:auto}
+#fig g{transition:opacity .25s}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+.chip{border:1px solid var(--ink);padding:3px 10px;font-size:12px;border-radius:99px}
+.chip b{color:var(--ch)}
+#name{font:italic 700 22px "Times New Roman",Georgia,serif}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.row h3{margin:0;font:700 19px "Times New Roman",Georgia,serif}.row small{color:var(--mut)}
+input[type=range]{width:100%;accent-color:var(--ch);margin:10px 0 4px}
+.num{font-weight:700;color:var(--ch)}.as{font-size:12px;color:var(--mut)}
+.bar{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-weight:600}
+.warn{color:#d32f2f}.ok{color:#2e7d32}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.m{border-top:2px solid var(--ink);padding-top:6px}.m b{display:block;font:700 24px "Times New Roman",Georgia,serif}.m span{font-size:12px;color:var(--mut)}
+button{background:var(--ink);color:var(--bg);border:0;padding:11px 20px;font:700 12px Inter,Arial,sans-serif;letter-spacing:.1em;cursor:pointer}
+.ft{font-size:12px;color:var(--mut);margin-top:14px}
+.tabs{display:flex;gap:8px;margin-bottom:14px}.tabs button{flex:1;background:transparent;color:var(--ink);border:1px solid var(--ink)}.tabs button.on{background:var(--ink);color:var(--bg)}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--ink);margin:0 0 8px;padding:13px 14px;font:600 14px Inter,Arial,sans-serif;letter-spacing:0}
+.qn{font:italic 700 24px/1.15 "Times New Roman",Georgia,serif;margin:4px 0 14px}.prog{font-size:11px;letter-spacing:.18em;color:var(--ch);font-weight:700}
+</style></head><body><div class="w">
+<div class="k">MEDIA VOGUE · THE MEDIA FITTING ROOM</div>
+<h1>Собери свой look</h1>
+<p class="sub">Раздели 120 000 ₽ между тремя площадками. Чем больше бюджет у площадки, тем заметнее её вещь в образе.</p>
+<div class="tabs"><button id="t1" class="on">LOOK-КАЛЬКУЛЯТОР</button><button id="t2">КВИЗ</button></div>
+<section id="pc">
+<div class="card look">
+<svg id="fig" viewBox="0 0 240 320" role="img" aria-label="Образ из трёх вещей">
+<circle cx="120" cy="36" r="18" fill="var(--mut)" opacity=".45"/><rect x="113" y="52" width="14" height="16" fill="var(--mut)" opacity=".45"/>
+<rect x="88" y="176" width="64" height="100" rx="5" fill="var(--mut)" opacity=".35"/><line x1="120" y1="190" x2="120" y2="276" stroke="var(--bg)" stroke-width="2"/>
+<g id="it0"><path d="M76 70 L164 70 L174 182 L66 182 Z" fill="var(--ch)"/><path d="M120 70 L104 124 L120 182 L136 124 Z" fill="var(--bg)" opacity=".28"/><circle cx="120" cy="150" r="3" fill="var(--bg)"/></g>
+<g id="it1"><path d="M174 156 q16 -28 32 0" fill="none" stroke="var(--ink)" stroke-width="4"/><rect x="168" y="156" width="44" height="36" rx="6" fill="var(--ink)"/><circle cx="190" cy="166" r="3" fill="var(--ch)"/></g>
+<g id="it2"><ellipse cx="102" cy="290" rx="26" ry="10" fill="var(--ch)"/><ellipse cx="138" cy="290" rx="26" ry="10" fill="var(--ch)"/></g>
+</svg>
+<div class="chips" id="chips"></div>
+<div id="name"></div><div class="as" id="nd"></div>
+</div>
+<div id="rows"></div>
+<div class="card bar"><span>Распределено: <span id="tot" class="num"></span></span><span id="rem"></span></div>
+<div class="card"><div class="g" id="res"></div></div>
+<div class="card" id="ins"></div>
+<button id="rs">КАК В ЖУРНАЛЕ: 50 / 40 / 30</button>
+</section>
+<section id="pq" hidden><div class="card" id="qb"></div></section>
+<p class="ft">Учебная модель LUNE. Цены и отклик условные, это не результаты платформ. Образ — метафора, а не оценка кампании: решает задача, а не красота.</p>
+</div>
+<script>
+const P=[{n:"ВКонтакте",f:"видео, посты",it:"Жакет",cpm:200,ctr:.01,cr:.05,b:50000},{n:"Telegram",f:"нативные посты",it:"Сумка",cpm:400,ctr:.012,cr:.04,b:40000},{n:"РСЯ",f:"баннеры",it:"Ботинки",cpm:200,ctr:.02,cr:.054,b:30000}];
+const LIM=120000,f0=n=>Math.round(n).toLocaleString("ru-RU"),f2=n=>n.toLocaleString("ru-RU",{minimumFractionDigits:2,maximumFractionDigits:2}),$=id=>document.getElementById(id);
+P.forEach((p,i)=>{$("rows").insertAdjacentHTML("beforeend",`<div class="card row"><div class="top"><div><h3>${p.n}</h3><small>${p.f} · вещь: ${p.it.toLowerCase()}</small></div><div class="num" id="v${i}"></div></div><input type="range" id="s${i}" min="0" max="${LIM}" step="1000" value="${p.b}" aria-label="Бюджет ${p.n}"><div class="as">CPM ${p.cpm} ₽ · CTR ${(p.ctr*100).toFixed(1).replace(".",",")}% · CR в лид ${(p.cr*100).toFixed(1).replace(".",",")}%</div></div>`);$("s"+i).oninput=calc});
+function calc(){let B=0,I=0,C=0,L=0,best=null;
+P.forEach((p,i)=>{const b=+$("s"+i).value;p.cur=b;$("v"+i).textContent=f0(b)+" ₽";const im=b/p.cpm*1000,cl=im*p.ctr,ld=cl*p.cr;B+=b;I+=im;C+=cl;L+=ld;if(b>0&&(!best||b/ld<best.cpl))best={n:p.n,cpl:b/ld}});
+$("tot").textContent=f0(B)+" ₽";const r=LIM-B,e=$("rem");e.className=r<0?"warn":"ok";e.textContent=r<0?"Перебор на "+f0(-r)+" ₽":r===0?"Бюджет собран":"Осталось "+f0(r)+" ₽";
+let ch="",mx=0,zero=0,mi=0;
+P.forEach((p,i)=>{const s=B?p.cur/B:0;if(s>mx){mx=s;mi=i}if(!p.cur)zero++;$("it"+i).style.opacity=s<=0?.1:(.35+.65*Math.min(s/.4,1)).toFixed(2);ch+=`<span class="chip">${p.it} · ${p.n} <b>${Math.round(s*100)}%</b></span>`});
+$("chips").innerHTML=ch;
+let nm="Пустой гардероб",nd="Распредели бюджет, чтобы собрать образ.";
+if(B){if(mx>=.55){nm=["Жакет-акцент","Сумка-история","Ботинки-практичность"][mi];nd="Ставка в основном на одну площадку («монолук»): проще, но легко получить пустые показы или дорогой лид."}else if(zero){nm="Образ без одной вещи";nd="Одна площадка выпала: проверь, не потерялась ли её роль в воронке."}else{nm="Капсула";nd="Все три площадки в деле: у каждой своя роль, образ сбалансирован."}}
+$("name").textContent=nm;$("nd").textContent=nd;
+const m=(v,l)=>`<div class="m"><b>${v}</b><span>${l}</span></div>`;
+$("res").innerHTML=B?m(f0(I),"показы")+m(f0(C),"клики")+m(f0(L),"лиды")+m(f2(B/I*1000)+" ₽","CPM")+m(f2(C/I*100)+"%","CTR")+m(f2(B/C)+" ₽","CPC")+m(f2(B/L)+" ₽","CPL"):"<span class='as'>Распредели бюджет</span>";
+$("ins").innerHTML=best?`<b>Самый дешёвый лид:</b> ${best.n}, ${f2(best.cpl)} ₽. Но если задача — знание о коллекции, смотри ещё на охват и частоту, а не только на CPL.`:"";}
+$("rs").onclick=()=>{P.forEach((p,i)=>$("s"+i).value=p.b);calc()};calc();
+
+const Q=[{q:"Выбираешь вещь на вечер. Что главное?",a:["Чтобы все сразу заметили","Чтобы за ней была история и настроение","Чтобы её можно было купить прямо сейчас"]},
+{q:"Как ты обычно находишь одежду?",a:["Листаю ленту, и что-то цепляет","Читаю подборки и мнение авторов","Ищу конкретную вещь по запросу"]},
+{q:"Твой гардероб — это…",a:["Яркие акценты и смелые сочетания","Продуманная капсула с характером","База, которая всегда под рукой"]},
+{q:"Твой идеальный выход",a:["Эффектный, как на подиуме","Стильный и с атмосферой","Быстро, удобно и по делу"]}];
+const R=[{t:"Жакет-акцент",d:"Тебе нужен громкий первый контакт: заметность и охват. В медиамиксе упор на ВКонтакте: показы и знакомство с коллекцией.",p:[70000,25000,25000]},
+{t:"Сумка-история",d:"Ты выбираешь доверие и контекст. В медиамиксе упор на Telegram: авторы, подборки и разговор о вещах. Лиды там дороже, но проверить, окупается ли это, нужно на данных.",p:[25000,70000,25000]},
+{t:"Ботинки-практичность",d:"Ты идёшь за результатом: переход на сайт и заказ. В медиамиксе упор на РСЯ: в нашей модели там самые дешёвые клик и лид.",p:[25000,25000,70000]},
+{t:"Капсула",d:"Ты любишь баланс. В медиамиксе у каждой площадки своя роль, как в продуманном гардеробе.",p:[50000,40000,30000]}];
+let qi=0,ans=[];
+function tab(n){$("pc").hidden=n!==1;$("pq").hidden=n!==2;$("t1").className=n===1?"on":"";$("t2").className=n===2?"on":"";}
+$("t1").onclick=()=>tab(1);$("t2").onclick=()=>{qi=0;ans=[];quiz();tab(2)};
+function quiz(){const b=$("qb");
+if(qi<Q.length){b.innerHTML=`<div class="prog">ВОПРОС ${qi+1} / ${Q.length}</div><div class="qn">${Q[qi].q}</div>`+Q[qi].a.map((t,i)=>`<button class="opt" data-i="${i}">${t}</button>`).join("");
+b.querySelectorAll(".opt").forEach(x=>x.onclick=()=>{ans.push(+x.dataset.i);qi++;quiz()});return}
+const c=[0,0,0];ans.forEach(i=>c[i]++);const m=Math.max(...c);const w=c.filter(v=>v===m).length===1?c.indexOf(m):3;const r=R[w];
+b.innerHTML=`<div class="prog">ТВОЙ LOOK</div><div class="qn">${r.t}</div><p>${r.d}</p><p class="as">Это игра и метафора, а не оценка твоей личности или готовый медиаплан.</p><button id="go">СОБРАТЬ В КАЛЬКУЛЯТОРЕ</button> <button id="again" style="background:transparent;color:var(--ink);border:1px solid var(--ink)">ЕЩЁ РАЗ</button>`;
+$("go").onclick=()=>{r.p.forEach((v,i)=>$("s"+i).value=v);calc();tab(1);window.scrollTo(0,0)};$("again").onclick=()=>{qi=0;ans=[];quiz()}}
+function route(){if(location.hash==="#quiz"){qi=0;ans=[];quiz();tab(2)}else if(location.hash==="#look"){tab(1)}}
+window.addEventListener("hashchange",route);route();
+</script></body></html>
